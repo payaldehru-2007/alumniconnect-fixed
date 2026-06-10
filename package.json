@@ -4,9 +4,9 @@
   "description": "Alumni Management System",
   "scripts": {
     "start": "concurrently \"npm run backend\" \"npm run python\" \"npm run frontend\"",
-    "backend": "node alumni-backend/server.js",
-    "frontend": "cd alumni-frontend && npm start",
-    "python": "cd deep-search-service/deep-search-service-main && set PYTHONIOENCODING=utf-8 && uvicorn main:app --reload --port 8000"
+  "backend": "cd alumni-backend && node server.js",
+    "frontend": "cd alumni-frontend && npx react-scripts start",
+"python": "cd deep-search-service/deep-search-service-main && set PYTHONIOENCODING=utf-8 && python -m uvicorn main:app --reload --port 8000"
   },
   "dependencies": {
     "concurrently": "^8.0.0"
