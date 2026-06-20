@@ -9,7 +9,7 @@ function StudentLogin() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('https://alumniconnect-pi.vercel.app/auth/login', {
+      const res = await axios.post('https://alumniconnect-pi.vercel.app/api/auth/login', {
         username,
         password
       });

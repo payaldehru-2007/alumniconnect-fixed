@@ -11,7 +11,7 @@ function AlumniProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const alumniRes = await axios.get(`https://alumniconnect-pi.vercel.app/alumni/${id}`);
+        const alumniRes = await axios.get(`https://alumniconnect-pi.vercel.app/api/alumni/${id}`);
         setAlumni(alumniRes.data);
         const searchRes = await axios.get(`http://localhost:8000/discover`, {
           params: {
