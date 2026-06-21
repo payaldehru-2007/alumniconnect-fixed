@@ -12,32 +12,29 @@ const DeepSearch = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-  handleSearch();
-  }, []);
   const handleSearch = async () => {
-    setLoading(true);
-    const params = new URLSearchParams();
-    Object.entries(filters).forEach(([k,v]) => { if(v) params.append(k,v); });
-    const res = await fetch(`http://localhost:8000/alumni/filter?${params}`);
-    const data = await res.json();
-    setResults(data.alumni || []);
-    setSearched(true);
-    setLoading(false);
-    setSelected(null);
-    setProfiles(null);
-  };
+  setLoading(true);
+  const res = await fetch('https://alumniconnect-fixed-swl8.vercel.app/api/alumni');
+  const data = await res.json();
+  let list = data.alumni || [];
+  Object.entries(filters).forEach(([k, v]) => {
+    if (v) list = list.filter(a => (a[k] || '').toLowerCase().includes(v.toLowerCase()));
+  });
+  setResults(list);
+  setSearched(true);
+  setLoading(false);
+  setSelected(null);
+  setProfiles(null);
+};
 
-  const handleDiscover = async (alumni) => {
-    setSelected(alumni);
-    setProfiles(null);
-    setLoading(true);
-    const res = await fetch(
-      `http://localhost:8000/discover?name=${encodeURIComponent(alumni.name)}&batch=${alumni.batch||''}&college=Om Sterling Global University&branch=${alumni.branch||''}`
-    );
-    const data = await res.json();
-    setProfiles(data.profiles);
-    setLoading(false);
-  };
+ const handleDiscover = async (alumni) => {
+  setSelected(alumni);
+  setProfiles({
+    linkedin: { found: false },
+    github: { found: false },
+    twitter: { found: false }
+  });
+};
 
   return (
     <div style={styles.container}>
